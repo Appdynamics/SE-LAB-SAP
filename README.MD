@@ -7,7 +7,7 @@ SE Lab for AppDynamics - SAP ABAP
 # 2. Lab Setup
 ## 2.1. Create your environment
 * Log into [Ravello] (appdynamicsravello)
-* Create an App from the Blueprint ```sap-netweaver-dev-bp``` (this will take some time)
+* Create an App from the Blueprint `sap-netweaver-dev-bp` (20 minutes till everything is up)
 * Download and Install SAP GUI (click through Install)
   * [Windows]
   * [Linux]
@@ -18,15 +18,27 @@ SE Lab for AppDynamics - SAP ABAP
   * Download [SSH Key]
   * `chmod 600 devops_level1_lab.pem`
   * `ssh -i devops_level1_lab.pem ubuntu@<Ravello VM Host/IP>`
+* Check the Startup status
+  * `docker logs -f sap`
+  * SAP is up when you see
+
+```
+starting SAP Instance D00
+Startup-Log is written to /home/npladm/startsap_D00.log
+-------------------------------------------
+/usr/sap/NPL/D00/exe/sapcontrol -prot NI_HTTP -nr 00 -function Start
+Instance on host sapnwdev started
+```
+
 * Accessing the AppDynamics UIs
   * Controller
     * http://<Ravello VM Host/IP>:8090
-    * User: ```admin```
-    * Password: ```appdynamics```
+    * User: `admin`
+    * Password: `appdynamics`
   * Enterprise Console
     * http://<Ravello VM Host/IP>:9191
-    * User: ```admin```
-    * Password: ```appdynamics```
+    * User: `admin`
+    * Password: `appdynamics`
 * Open SAP GUI
 
 ![open sap gui](img/open_sap_gui.png)
@@ -41,11 +53,12 @@ SE Lab for AppDynamics - SAP ABAP
 ![connection sap gui](img/connection_sap_gui.png)
 
 * Connect
-  * User: SAP*
-  * Password: Appl1ance
+  * User: `SAP*`
+  * Password: `Appl1ance`
 
 ![connected sap gui](img/connected_sap_gui.png)
 
+# 3. Lab Setup
 
 [ravello]: https://cloud.ravellosystems.com/
 [SSH Key]: https://singularity.jira.com/wiki/download/attachments/353600935/devops_level1_lab.pem?version=1&modificationDate=1517075637133&cacheVersion=1&api=v2&download=true
