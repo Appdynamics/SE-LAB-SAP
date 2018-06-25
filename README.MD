@@ -62,27 +62,19 @@ Instance on host sapnwdev started
 * General Setup is documented within [Install SAP Netweaver Systems]
 
 ## 3.1. Install the AppDynamics C++ SDK and HTTP SDK Proxy
-* Unzip the Agent Bits
-  * `cd /home/ubuntu`
-  * `unzip APPD-SAP-4.4.1805.0.zip -d ./appd_sap_agent`
-* Create Target directory
-  * `sudo mkdir -p /opt/appdynamics/appdhttpsdk`
-* Copy files
-  * `sudo cp -r appd_sap_agent/APPD-SAP-4.4.1805.0/SapAgent-4.4.1805.0/appdhttpsdk/* /opt/appdynamics/appdhttpsdk/`
-* Adjust the permissions
-  * `sudo chmod -r 777 /opt/appdynamics/appdhttpsdk/`
-* Go to the SDK Manager
-  * `cd /opt/appdynamics/appdhttpsdk/`
-* Make it executable
-  * `chmod +x runSDKManager`
-* Run it
+* The Agent Bits are available within the Docker Image `appd-sap-agent`
+  * Check [AppD SAP Agent] for details
+* Get in the Container
+  * `docker exec -ti appd-sap-agent /bin/bash`
+* Start the SDK Manager
   * `/opt/appdynamics/appdhttpsdk/runSDKManager`
 
 ## 3.2. Install the Machine Agent
 
+
 ## 3.3. Install the SAP ABAP Components
 * Go to the Transports
-  * `cd /home/ubuntu/appd_sap_agent/APPD-SAP-4.4.1805.0/AbapAgent740-4.4.1805.0/`
+  * `cd /home/ubuntu/abap_transports`
 * Copy the Transports into the SAP transport folders
   * `docker cp cofiles/K900187.SIQ sap:/usr/sap/trans/cofiles/`
   * `docker cp cofiles/K900960.ED2 sap:/usr/sap/trans/cofiles/`
@@ -98,10 +90,13 @@ Instance on host sapnwdev started
 ![stms import exe](img/stms_import_execution.png)
 * Check `Ignore invalid Component Version` within `Options`
 ![stms import opts](img/stms_import_options.png)
-* Save and confirm for each of the Requests
-* After importing all 3 Transport you should see something like this:
+* Save and confirm for each of the Requests. This will take some time.
+* **Ignore the Errors for now**
 
+# 4. Configure SAP ABAP Agent
+* Open the SAP GUI and go to the `/n /DVD/APPD_CUST` Transaction
 
+[AppD SAP Agent]: /docker/Dockerfile
 [Install SAP Netweaver Systems]: https://docs.appdynamics.com/display/SAP/Install+SAP+Netweaver+Systems
 [ravello]: https://cloud.ravellosystems.com/
 [SSH Key]: https://singularity.jira.com/wiki/download/attachments/353600935/devops_level1_lab.pem?version=1&modificationDate=1517075637133&cacheVersion=1&api=v2&download=true
