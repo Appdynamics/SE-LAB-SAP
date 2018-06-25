@@ -98,6 +98,9 @@ Instance on host sapnwdev started
 ![stms import exe](img/stms_import_execution.png)
 * Check `Ignore invalid Component Version` within `Options`
 ![stms import opts](img/stms_import_options.png)
+* Save and confirm for each of the Requests
+* After importing all 3 Transport you should see something like this:
+
 
 [Install SAP Netweaver Systems]: https://docs.appdynamics.com/display/SAP/Install+SAP+Netweaver+Systems
 [ravello]: https://cloud.ravellosystems.com/
