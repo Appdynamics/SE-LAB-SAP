@@ -32,11 +32,11 @@ Instance on host sapnwdev started
 
 * Accessing the AppDynamics UIs
   * Controller
-    * http://<Ravello VM Host/IP>:8090
+    * `http://<Ravello VM Host/IP>:8090`
     * User: `admin`
     * Password: `appdynamics`
   * Enterprise Console
-    * http://<Ravello VM Host/IP>:9191
+    * `http://<Ravello VM Host/IP>:9191`
     * User: `admin`
     * Password: `appdynamics`
 * Open SAP GUI
@@ -58,8 +58,48 @@ Instance on host sapnwdev started
 
 ![connected sap gui](img/connected_sap_gui.png)
 
-# 3. Lab Setup
+# 3. Install SAP ABAP Agent
+* General Setup is documented within [Install SAP Netweaver Systems]
 
+## 3.1. Install the AppDynamics C++ SDK and HTTP SDK Proxy
+* Unzip the Agent Bits
+  * `cd /home/ubuntu`
+  * `unzip APPD-SAP-4.4.1805.0.zip -d ./appd_sap_agent`
+* Create Target directory
+  * `sudo mkdir -p /opt/appdynamics/appdhttpsdk`
+* Copy files
+  * `sudo cp -r appd_sap_agent/APPD-SAP-4.4.1805.0/SapAgent-4.4.1805.0/appdhttpsdk/* /opt/appdynamics/appdhttpsdk/`
+* Adjust the permissions
+  * `sudo chmod -r 777 /opt/appdynamics/appdhttpsdk/`
+* Go to the SDK Manager
+  * `cd /opt/appdynamics/appdhttpsdk/`
+* Make it executable
+  * `chmod +x runSDKManager`
+* Run it
+  * `/opt/appdynamics/appdhttpsdk/runSDKManager`
+
+## 3.2. Install the Machine Agent
+
+## 3.3. Install the SAP ABAP Components
+* Go to the Transports
+  * `cd /home/ubuntu/appd_sap_agent/APPD-SAP-4.4.1805.0/AbapAgent740-4.4.1805.0/`
+* Copy the Transports into the SAP transport folders
+  * `docker cp cofiles/K900187.SIQ sap:/usr/sap/trans/cofiles/`
+  * `docker cp cofiles/K900960.ED2 sap:/usr/sap/trans/cofiles/`
+  * `docker cp cofiles/K904456.NSQ sap:/usr/sap/trans/cofiles/`
+  * `docker cp data/R904456.NSQ sap:/usr/sap/trans/data/`
+  * `docker cp data/R900187.SIQ sap:/usr/sap/trans/data/`
+  * `docker cp data/R900960.ED2 sap:/usr/sap/trans/data/`
+* Open the SAP GUI and go to the `/n STMS_IMPORT` Transaction
+![stms import](img/stms_import_transaction.png)
+* Queue all 3 Transports by clicking `Extras -> Other Requests -> Add`
+* Import the Transport request **in the order shown above** by `Right click -> Import`
+* Check `Synchronous` within `Execution`
+![stms import exe](img/stms_import_execution.png)
+* Check `Ignore invalid Component Version` within `Options`
+![stms import opts](img/stms_import_options.png)
+
+[Install SAP Netweaver Systems]: https://docs.appdynamics.com/display/SAP/Install+SAP+Netweaver+Systems
 [ravello]: https://cloud.ravellosystems.com/
 [SSH Key]: https://singularity.jira.com/wiki/download/attachments/353600935/devops_level1_lab.pem?version=1&modificationDate=1517075637133&cacheVersion=1&api=v2&download=true
 [Windows]: https://owncloud.appd.duckdns.org/s/GoR9z54GGgpQw9C
