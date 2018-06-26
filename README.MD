@@ -70,7 +70,20 @@ Instance on host sapnwdev started
   * `/opt/appdynamics/appdhttpsdk/runSDKManager`
 
 ## 3.2. Install the Machine Agent
-
+* We will install the Machine Agent within the SAP Container
+* Unzip the Machine Agent
+  * `unzip /home/ubuntu/machineagent.zip -d /home/ubuntu/machineagent`
+* Configure the Machine Agent
+  * `vi /home/ubuntu/machineagent/conf/controller-info.xml`
+  * controller-host is `172.17.0.1`
+  * controller-port is `8090`
+  * account-access-key is `appdynamics`
+  * account-name is `customer1`
+  * sim-enabled is `true`
+* Copy it into the Container
+  * `docker cp /home/ubuntu/machineagent/ sap:/opt/machineagent`
+* Start the Machine Agent
+  * `docker exec -d sap /bin/bash -c "/machineagent/bin/machine-agent -d -p machine.pid -Dmetric.http.listener=true -Dmetric.http.listener.port=8293 -Dmetric.http.listener.host=0.0.0.0"`
 
 ## 3.3. Install the SAP ABAP Components
 * Go to the Transports
@@ -95,6 +108,12 @@ Instance on host sapnwdev started
 
 # 4. Configure SAP ABAP Agent
 * Open the SAP GUI and go to the `/n /DVD/APPD_CUST` Transaction
+
+# Troubleshooting
+* The AppDynamics platform does not come up
+  * Delete the old one `docker rm -f appd`
+  * Create a new one `docker run -d --name appd --hostname 3ead5cb9db00 -p 8090:8090 -p 9191:9191 -p 9080:9080 michaelenglert/appd-platform`
+  * Copy in the license `docker cp /home/ubuntu/license.lic appd:/opt/appdynamics/platform/controller/`
 
 [AppD SAP Agent]: /docker/Dockerfile
 [Install SAP Netweaver Systems]: https://docs.appdynamics.com/display/SAP/Install+SAP+Netweaver+Systems
