@@ -61,31 +61,7 @@ Instance on host sapnwdev started
 # 3. Install SAP ABAP Agent
 * General Setup is documented within [Install SAP Netweaver Systems]
 
-## 3.1. Install the AppDynamics C++ SDK and HTTP SDK Proxy
-* The Agent Bits are available within the Docker Image `appd-sap-agent`
-  * Check [AppD SAP Agent] for details
-* Get in the Container
-  * `docker exec -ti appd-sap-agent /bin/bash`
-* Start the SDK Manager
-  * `/opt/appdynamics/appdhttpsdk/runSDKManager`
-
-## 3.2. Install the Machine Agent
-* We will install the Machine Agent within the SAP Container
-* Unzip the Machine Agent
-  * `unzip /home/ubuntu/machineagent.zip -d /home/ubuntu/machineagent`
-* Configure the Machine Agent
-  * `vi /home/ubuntu/machineagent/conf/controller-info.xml`
-  * controller-host is `172.17.0.1`
-  * controller-port is `8090`
-  * account-access-key is `appdynamics`
-  * account-name is `customer1`
-  * sim-enabled is `true`
-* Copy it into the Container
-  * `docker cp /home/ubuntu/machineagent/ sap:/opt/machineagent`
-* Start the Machine Agent
-  * `docker exec -d sap /bin/bash -c "/opt/machineagent/bin/machine-agent -d -p machine.pid -Dmetric.http.listener=true -Dmetric.http.listener.port=8293 -Dmetric.http.listener.host=0.0.0.0"`
-
-## 3.3. Install the SAP ABAP Components
+## 3.1. Install the SAP ABAP Components
 * Go to the Transports
   * `cd /home/ubuntu/abap_transports`
 * Copy the Transports into the SAP transport folders
@@ -105,8 +81,32 @@ Instance on host sapnwdev started
 ![stms import exe](img/stms_import_execution.png)
 * Check `Ignore invalid Component Version` within `Options`
 ![stms import opts](img/stms_import_options.png)
-* Save and confirm for each of the Requests. This will take some time.
+* Save and confirm for each of the Requests. This will take some time. **Go ahead and do 3.2. and 3.3. in parallel**
 * **Ignore if you see Errors on the last Transport**
+
+## 3.2. Install the AppDynamics C++ SDK and HTTP SDK Proxy
+* The Agent Bits are available within the Docker Image `appd-sap-agent`
+  * Check [AppD SAP Agent] for details
+* Get in the Container
+  * `docker exec -ti appd-sap-agent /bin/bash`
+* Start the SDK Manager
+  * `/opt/appdynamics/appdhttpsdk/runSDKManager`
+
+## 3.3. Install the Machine Agent
+* We will install the Machine Agent within the SAP Container
+* Unzip the Machine Agent
+  * `unzip /home/ubuntu/machineagent.zip -d /home/ubuntu/machineagent`
+* Configure the Machine Agent
+  * `vi /home/ubuntu/machineagent/conf/controller-info.xml`
+  * controller-host is `172.17.0.1`
+  * controller-port is `8090`
+  * account-access-key is `appdynamics`
+  * account-name is `customer1`
+  * sim-enabled is `true`
+* Copy it into the Container
+  * `docker cp /home/ubuntu/machineagent/ sap:/opt/machineagent`
+* Start the Machine Agent
+  * `docker exec -d sap /bin/bash -c "/opt/machineagent/bin/machine-agent -d -p machine.pid -Dmetric.http.listener=true -Dmetric.http.listener.port=8293 -Dmetric.http.listener.host=0.0.0.0"`
 
 # 4. Configure SAP ABAP Agent
 * Open the SAP GUI and go to the `/n /DVD/APPD_CUST` Transaction
