@@ -104,15 +104,20 @@ Instance on host sapnwdev started
 * Check `Ignore invalid Component Version` within `Options`
 ![stms import opts](img/stms_import_options.png)
 * Save and confirm for each of the Requests. This will take some time.
-* **Ignore the Errors for now**
+* **Ignore if you see Errors on the last Transport**
 
 # 4. Configure SAP ABAP Agent
 * Open the SAP GUI and go to the `/n /DVD/APPD_CUST` Transaction
+* Fill out all the required Information
+  * The SDK is remote
+  * The Machine Agent is local
+  * To connect to the Events Service we need an API Key
+* On the Status Screen you should see everything as green in the end
 
 # Troubleshooting
 * The AppDynamics platform does not come up
   * Delete the old one `docker rm -f appd`
-  * Create a new one `docker run -d --name appd --hostname 3ead5cb9db00 -p 8090:8090 -p 9191:9191 -p 9080:9080 michaelenglert/appd-platform`
+  * Create a new one `docker run -d --restart always --name appd --hostname 3ead5cb9db00 -p 8090:8090 -p 9191:9191 -p 9080:9080 michaelenglert/appd-platform`
   * Copy in the license `docker cp /home/ubuntu/license.lic appd:/opt/appdynamics/platform/controller/`
 
 [AppD SAP Agent]: /docker/Dockerfile
