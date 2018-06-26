@@ -81,7 +81,8 @@ Instance on host sapnwdev started
 ![stms import exe](img/stms_import_execution.png)
 * Check `Ignore invalid Component Version` within `Options`
 ![stms import opts](img/stms_import_options.png)
-* Save and confirm for each of the Requests. This will take some time. **Go ahead and do 3.2. and 3.3. in parallel**
+* Save and confirm for each of the Requests. This will take some time.
+* **Go ahead and do 3.2. and 3.3. while the Transports are imported**
 * **Ignore if you see Errors on the last Transport**
 
 ## 3.2. Install the AppDynamics C++ SDK and HTTP SDK Proxy
