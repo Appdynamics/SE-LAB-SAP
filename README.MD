@@ -83,7 +83,7 @@ Instance on host sapnwdev started
 * Copy it into the Container
   * `docker cp /home/ubuntu/machineagent/ sap:/opt/machineagent`
 * Start the Machine Agent
-  * `docker exec -d sap /bin/bash -c "/machineagent/bin/machine-agent -d -p machine.pid -Dmetric.http.listener=true -Dmetric.http.listener.port=8293 -Dmetric.http.listener.host=0.0.0.0"`
+  * `docker exec -d sap /bin/bash -c "/opt/machineagent/bin/machine-agent -d -p machine.pid -Dmetric.http.listener=true -Dmetric.http.listener.port=8293 -Dmetric.http.listener.host=0.0.0.0"`
 
 ## 3.3. Install the SAP ABAP Components
 * Go to the Transports
