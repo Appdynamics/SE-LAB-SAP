@@ -97,7 +97,9 @@ Instance on host sapnwdev started
   * `docker cp data/R900960.ED2 sap:/usr/sap/trans/data/`
 * Open the SAP GUI and go to the `/n STMS_IMPORT` Transaction
 ![stms import](img/stms_import_transaction.png)
-* Queue all 3 Transports by clicking `Extras -> Other Requests -> Add`
+* The list will still be empty. Now queue the requests by
+  * Click `Extras -> Other Requests -> Add`
+  * This has to be done for all 3 Transports
 * Import the Transport request **in the order shown above** by `Right click -> Import`
 * Check `Synchronous` within `Execution`
 ![stms import exe](img/stms_import_execution.png)
