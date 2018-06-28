@@ -4,14 +4,19 @@ SE Lab for AppDynamics - SAP ABAP
 **This Lab will cover:**
 * SAP APM
 
+# 1.1. Pre-requisites
+* Ravello Account
+* For Linux/Mac Java 1.8
+* SSH Client
+
 # 2. Lab Setup
 ## 2.1. Create your environment
 * Log into [Ravello] (appdynamicsravello)
 * Create an App from the Blueprint `sap-netweaver-dev-bp` (20 minutes till everything is up)
 * Download and Install SAP GUI (click through Install)
   * [Windows]
-  * [Linux]
-  * [Mac]
+  * [Linux] (Java 1.8 required)
+  * [Mac] (Java 1.8 required)
 
 ## 2.2. Accessing the Lab
 * SSH Login
