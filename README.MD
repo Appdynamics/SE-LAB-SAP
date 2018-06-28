@@ -133,6 +133,6 @@ Instance on host sapnwdev started
 [Install SAP Netweaver Systems]: https://docs.appdynamics.com/display/SAP/Install+SAP+Netweaver+Systems
 [ravello]: https://cloud.ravellosystems.com/
 [SSH Key]: https://singularity.jira.com/wiki/download/attachments/353600935/devops_level1_lab.pem?version=1&modificationDate=1517075637133&cacheVersion=1&api=v2&download=true
-[Windows]: https://owncloud.appd.duckdns.org/s/GoR9z54GGgpQw9C
-[Linux]: https://owncloud.appd.duckdns.org/s/BtF79RGWD3ca9pR
-[Mac]: https://owncloud.appd.duckdns.org/s/894rw9QxDn9QJqX
+[Windows]: https://singularity.jira.com/wiki/download/attachments/535298310/sap_gui_740_windows.exe?version=1&modificationDate=1530191613449&cacheVersion=1&api=v2&download=true
+[Linux]: https://singularity.jira.com/wiki/spaces/~michael.englert/pages/535298310/SAP+Lab?preview=/535298310/535527688/sap_gui_740_linux.jar#
+[Mac]: https://singularity.jira.com/wiki/download/attachments/535298310/sap_gui_740_mac.jar?version=1&modificationDate=1530191345604&cacheVersion=1&api=v2&download=true
