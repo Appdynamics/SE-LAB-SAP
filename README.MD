@@ -115,6 +115,7 @@ Instance on host sapnwdev started
   * The SDK is remote
   * The Machine Agent is local
   * To connect to the Events Service we need an API Key
+![stms import opts](img/appd_config.png)
 * On the Status Screen you should see everything as green in the end
 
 # Troubleshooting
