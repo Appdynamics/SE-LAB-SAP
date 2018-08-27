@@ -128,6 +128,16 @@ Instance on host sapnwdev started
   * Delete the old one `docker rm -f appd`
   * Create a new one `docker run -d --restart always --name appd --hostname 3ead5cb9db00 -p 8090:8090 -p 9191:9191 -p 9080:9080 michaelenglert/appd-platform`
   * Copy in the license `docker cp /home/ubuntu/license.lic appd:/opt/appdynamics/platform/controller/`
+* SAP License Error `Logon not possible (error in license check)`
+  * Go to the transaction `/n SLICENSE`
+  * Delete the existin license
+  * Go to the [license renewal page] 
+    * Select **NPL - SAP Netweaver 7.x (Sybase ASE)**
+    * Fill in the requested information
+    * Download the new license file `NPL.txt`
+  * Replace the `SYSTEM-NR` key with the System Number from SAP GUI in the `NPL.txt` file
+  * Import the license
+
 
 [AppD SAP Agent]: /docker/Dockerfile
 [Install SAP Netweaver Systems]: https://docs.appdynamics.com/display/SAP/Install+SAP+Netweaver+Systems
@@ -136,3 +146,4 @@ Instance on host sapnwdev started
 [Windows]: https://singularity.jira.com/wiki/download/attachments/535298310/sap_gui_740_windows.exe?version=1&modificationDate=1530191613449&cacheVersion=1&api=v2&download=true
 [Linux]: https://singularity.jira.com/wiki/spaces/~michael.englert/pages/535298310/SAP+Lab?preview=/535298310/535527688/sap_gui_740_linux.jar#
 [Mac]: https://singularity.jira.com/wiki/download/attachments/535298310/sap_gui_740_mac.jar?version=1&modificationDate=1530191345604&cacheVersion=1&api=v2&download=true
+[license renewal page]: https://go.support.sap.com/minisap/#/minisap
