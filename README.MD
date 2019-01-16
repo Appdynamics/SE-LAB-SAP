@@ -13,7 +13,7 @@ SE Lab for AppDynamics - SAP ABAP
 # 2. Lab Setup
 ## 2.1. Create your environment
 * Log into [Ravello] (appdynamicsravello)
-* Create an App from the Blueprint `sap-netweaver-dev-bp` (20 minutes till everything is up)
+* Create an App from the Blueprint `sap-netweaver-dev-bp-v1.1` (20 minutes till everything is up)
 * **Optional:** Download and Install SAP GUI (click through Install)
   * [Windows]
   * [Linux] (Java 1.8 required)
