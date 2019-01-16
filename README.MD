@@ -51,10 +51,8 @@ Instance on host sapnwdev started
     * `http://<appd-platform VM Host/IP>:9191`
     * User: `admin`
     * Password: `appdynamics`
+* RDP into `windows-client` or use your local SAP GUI Installation
 * Open SAP GUI
-
-![open sap gui](img/open_sap_gui.png)
-
 * Create New Connection
   * Click `Variable Logon`
   * Click `Next`
