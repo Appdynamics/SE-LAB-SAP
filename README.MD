@@ -8,21 +8,28 @@ SE Lab for AppDynamics - SAP ABAP
 * Ravello Account
 * For Linux/Mac Java 1.8
 * SSH Client
+* **Optional:** RDP Client
 
 # 2. Lab Setup
 ## 2.1. Create your environment
 * Log into [Ravello] (appdynamicsravello)
 * Create an App from the Blueprint `sap-netweaver-dev-bp` (20 minutes till everything is up)
-* Download and Install SAP GUI (click through Install)
+* **Optional:** Download and Install SAP GUI (click through Install)
   * [Windows]
   * [Linux] (Java 1.8 required)
   * [Mac] (Java 1.8 required)
 
 ## 2.2. Accessing the Lab
+* Lab consists of 3 VMs
+  * Windows Client VM - `windows-client`
+  * SAP Netweaver Developer Edition - `sap-netweaver`
+  * AppDynamics Platform - `appd-platform`
 * SSH Login
   * Download [SSH Key]
   * `chmod 600 devops_level1_lab.pem`
   * `ssh -i devops_level1_lab.pem ubuntu@<Ravello VM Host/IP>`
+* RDP Login
+  * You find the Credentials under `General -> Description` within Ravello
 * Check the Startup status
   * `docker logs -f sap`
   * SAP is up when you see
@@ -37,11 +44,11 @@ Instance on host sapnwdev started
 
 * Accessing the AppDynamics UIs
   * Controller
-    * `http://<Ravello VM Host/IP>:8090`
+    * `http://<appd-platform VM Host/IP>:8090`
     * User: `admin`
     * Password: `appdynamics`
   * Enterprise Console
-    * `http://<Ravello VM Host/IP>:9191`
+    * `http://<appd-platform VM Host/IP>:9191`
     * User: `admin`
     * Password: `appdynamics`
 * Open SAP GUI
@@ -49,15 +56,17 @@ Instance on host sapnwdev started
 ![open sap gui](img/open_sap_gui.png)
 
 * Create New Connection
-  * Go To the `Advanced Tab`
-  * Check `Expert Mode`
+  * Click `Variable Logon`
+  * Click `Next`
   * Put in your Connection Details like
-    * `conn=/H/<Ravello VM Host/IP>/S/3200&wan=true&clnt=000&user=SAP*`
-  * Save
+    * Application Server `sap-netweaver`
+    * Instance Number `00`
+    * System ID `NPL`
+  * Click `Log On`
 
 ![connection sap gui](img/connection_sap_gui.png)
 
-* Connect
+* Logon Details
   * User: `SAP*`
   * Password: `Appl1ance`
 
@@ -70,18 +79,14 @@ Instance on host sapnwdev started
 * Go to the Transports
   * `cd /home/ubuntu/abap_transports`
 * Copy the Transports into the SAP transport folders
-  * `docker cp cofiles/K900187.SIQ sap:/usr/sap/trans/cofiles/`
-  * `docker cp cofiles/K900960.ED2 sap:/usr/sap/trans/cofiles/`
-  * `docker cp cofiles/K904456.NSQ sap:/usr/sap/trans/cofiles/`
-  * `docker cp data/R904456.NSQ sap:/usr/sap/trans/data/`
-  * `docker cp data/R900187.SIQ sap:/usr/sap/trans/data/`
-  * `docker cp data/R900960.ED2 sap:/usr/sap/trans/data/`
+  * `docker cp ./ sap:/usr/sap/trans/`
 * Open the SAP GUI and go to the `/n STMS_IMPORT` Transaction
 ![stms import](img/stms_import_transaction.png)
 * The list will still be empty. Now queue the requests by
   * Click `Extras -> Other Requests -> Add`
   * This has to be done for all 3 Transports
-* Import the Transport request **in the order shown above** by `Right click -> Import`
+* Import the Transport requests by `Right click -> Import`
+* **The Order of the Imports can be found in `/home/ubuntu/abap_transports/readme.txt`**
 * Check `Synchronous` within `Execution`
 ![stms import exe](img/stms_import_execution.png)
 * Check `Ignore invalid Component Version` within `Options`
@@ -90,13 +95,11 @@ Instance on host sapnwdev started
 * **Go ahead and do 3.2. and 3.3. while the Transports are imported**
 * **Ignore if you see Errors on the last Transport**
 
-## 3.2. Install the AppDynamics C++ SDK and HTTP SDK Proxy
-* The Agent Bits are available within the Docker Image `appd-sap-agent`
+## 3.2. Run the Remote AppDynamics C++ SDK and HTTP SDK Proxy
+* The Agent Bits are available within the Docker Image `michaelenglert/appd-sapagent`
   * Check [AppD SAP Agent] for details
-* Get in the Container
-  * `docker exec -ti appd-sap-agent /bin/bash`
-* Start the SDK Manager
-  * `/opt/appdynamics/appdhttpsdk/runSDKManager`
+* Run the Container
+  * `docker run --restart=always --name appd-sapagent -p 7999:7999 -p 8900:8900 michaelenglert/appd-sapagent`
 
 ## 3.3. Install the Machine Agent
 * We will install the Machine Agent within the SAP Container
@@ -104,7 +107,7 @@ Instance on host sapnwdev started
   * `unzip /home/ubuntu/machineagent.zip -d /home/ubuntu/machineagent`
 * Configure the Machine Agent
   * `vi /home/ubuntu/machineagent/conf/controller-info.xml`
-  * controller-host is `172.17.0.1`
+  * controller-host is `appd-platform`
   * controller-port is `8090`
   * account-access-key is `appdynamics`
   * account-name is `customer1`
@@ -137,6 +140,8 @@ Instance on host sapnwdev started
     * Download the new license file `NPL.txt`
   * Replace the `SYSTEM-NR` key with the System Number from SAP GUI in the `NPL.txt` file
   * Import the license
+* DNS Resolution does not work
+  * run `sudo systemctl restart systemd-resolved` on the Ubuntu Servers
 
 
 [AppD SAP Agent]: /docker/Dockerfile
