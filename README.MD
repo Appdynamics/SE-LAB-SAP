@@ -20,6 +20,9 @@ SE Lab for AppDynamics - SAP ABAP
   * [Mac] (Java 1.8 required)
 
 ## 2.2. Accessing the Lab
+
+### 2.2.1. Using the Windows Client
+
 * Lab consists of 3 VMs
   * Windows Client VM - `windows-client`
   * SAP Netweaver Developer Edition - `sap-netweaver`
@@ -69,6 +72,20 @@ Instance on host sapnwdev started
   * Password: `Appl1ance`
 
 ![connected sap gui](img/connected_sap_gui.png)
+
+### 2.2.2. Using the Java SAP GUI
+
+* Create New Connection
+  * Go To the `Advanced Tab`
+  * Check `Expert Mode`
+  * Put in your Connection Details like
+    * `conn=/H/<Ravello VM Host/IP>/S/3200&wan=true&clnt=000&user=SAP*`
+  * Save
+* Click `Log On`
+* Logon Details
+  * User: `SAP*`
+  * Password: `Appl1ance`
+  
 
 # 3. Install SAP ABAP Agent
 * General Setup is documented within [Install SAP Netweaver Systems]
