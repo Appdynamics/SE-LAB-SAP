@@ -114,7 +114,7 @@ Instance on host sapnwdev started
 * The Agent Bits are available within the Docker Image `michaelenglert/appd-sapagent`
   * Check [AppD SAP Agent] for details
 * Run the Container
-  * `docker run --restart=always --name appd-sapagent -p 7999:7999 -p 8900:8900 michaelenglert/appd-sapagent`
+  * `docker run -d --restart=always --name appd-sapagent -p 7999:7999 -p 8900:8900 michaelenglert/appd-sapagent`
 
 ## 3.3. Install the Machine Agent
 * We will install the Machine Agent within the SAP Container
